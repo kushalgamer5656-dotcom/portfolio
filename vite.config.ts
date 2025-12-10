@@ -3,5 +3,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/", // if deploying to subpath use: "/repo-name/"
+  base: "/portfolio/",
 });
