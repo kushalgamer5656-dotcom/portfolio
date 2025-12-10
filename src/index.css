@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+:root {
+  --cyber-black: #0a0a0f;
+  --cyber-dark: #13131f;
+  --cyber-primary: #00f0ff;
+  --cyber-secondary: #7000ff;
+  --cyber-text: #e0e0e0;
+}
