@@ -1,20 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Safely retrieve API Key to prevent crashes if process is undefined
-const getApiKey = (): string => {
-  try {
-    if (typeof process !== "undefined" && process.env) {
-      return process.env.API_KEY || "";
-    }
-  } catch (e) {
-    console.warn("Unable to access process.env");
-  }
-  return "";
-};
-
-const apiKey = getApiKey();
-const ai = new GoogleGenAI({ apiKey });
-
 const SYSTEM_INSTRUCTION = `
 You are an AI assistant for the portfolio website of Kushal Khanal.
 Kushal is an AI Engineer and student.
@@ -37,12 +22,17 @@ If asked about something unrelated to Kushal or AI, politely steer the conversat
 `;
 
 export const sendMessageToGemini = async (message: string): Promise<string> => {
-  if (!apiKey) {
-    return "API Key is missing or environment is not configured correctly.";
-  }
-
   try {
-    const model = 'gemini-2.5-flash';
+    const apiKey = import.meta.env.VITE_API_KEY;
+
+    if (!apiKey) {
+      console.warn("Gemini API Key is missing. Chat functionality is disabled.");
+      return "I'm sorry, my connection to the AI brain is currently unconfigured (API Key missing). Please check back later.";
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
+    const model = 'gemini-2.0-flash-exp'; // Updated to valid model or fallback
+
     const response = await ai.models.generateContent({
       model: model,
       contents: message,
@@ -54,6 +44,6 @@ export const sendMessageToGemini = async (message: string): Promise<string> => {
     return response.text || "I processed that, but have no text response.";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "I am currently offline due to a network error. Please try again later.";
+    return "I am currently offline due to a network error or API configuration issue. Please try again later.";
   }
 };
