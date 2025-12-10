@@ -1,29 +1,44 @@
 import React from 'react';
 import { Page } from '../types';
 import { Menu, X, Cpu } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-interface NavigationProps {
-  activePage: Page;
-  setActivePage: (page: Page) => void;
-}
-
-const Navigation: React.FC<NavigationProps> = ({ activePage, setActivePage }) => {
+const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const getActivePage = (path: string): Page => {
+    switch (path) {
+      case '/': return Page.HOME;
+      case '/resume': return Page.RESUME;
+      case '/projects': return Page.PROJECTS;
+      case '/contact': return Page.CONTACT;
+      default: return Page.HOME;
+    }
+  };
+
+  const activePage = getActivePage(location.pathname);
 
   const navItems = [
-    { label: 'HOME', page: Page.HOME },
-    { label: 'RESUME', page: Page.RESUME },
-    { label: 'PROJECTS', page: Page.PROJECTS },
-    { label: 'CONTACT', page: Page.CONTACT },
+    { label: 'HOME', page: Page.HOME, path: '/' },
+    { label: 'RESUME', page: Page.RESUME, path: '/resume' },
+    { label: 'PROJECTS', page: Page.PROJECTS, path: '/projects' },
+    { label: 'CONTACT', page: Page.CONTACT, path: '/contact' },
   ];
+
+  const handleNavClick = (path: string) => {
+    navigate(path);
+    setIsOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 left-0 w-full z-40 bg-cyber-black/80 backdrop-blur-md border-b border-cyber-primary/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          
+
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => setActivePage(Page.HOME)}>
+          <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
             <Cpu className="w-8 h-8 text-cyber-primary animate-pulse-fast" />
             <span className="font-display font-bold text-xl tracking-widest text-white">
               KUSHAL<span className="text-cyber-primary">.AI</span>
@@ -36,12 +51,11 @@ const Navigation: React.FC<NavigationProps> = ({ activePage, setActivePage }) =>
               {navItems.map((item) => (
                 <button
                   key={item.label}
-                  onClick={() => setActivePage(item.page)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium tracking-wider transition-all duration-300 ${
-                    activePage === item.page
+                  onClick={() => handleNavClick(item.path)}
+                  className={`px-3 py-2 rounded-md text-sm font-medium tracking-wider transition-all duration-300 ${activePage === item.page
                       ? 'text-cyber-black bg-cyber-primary shadow-[0_0_15px_rgba(0,240,255,0.7)]'
                       : 'text-gray-300 hover:text-white hover:bg-white/10'
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </button>
@@ -68,15 +82,11 @@ const Navigation: React.FC<NavigationProps> = ({ activePage, setActivePage }) =>
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => {
-                  setActivePage(item.page);
-                  setIsOpen(false);
-                }}
-                className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium ${
-                  activePage === item.page
+                onClick={() => handleNavClick(item.path)}
+                className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium ${activePage === item.page
                     ? 'text-cyber-primary bg-white/5 border-l-4 border-cyber-primary'
                     : 'text-gray-300 hover:text-white hover:bg-white/10'
-                }`}
+                  }`}
               >
                 {item.label}
               </button>
