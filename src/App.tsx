@@ -10,6 +10,8 @@ import Contact from './pages/Contact';
 import SnowOverlay from './components/SnowOverlay';
 import ChatBot from './components/ChatBot';
 
+import ThreeBackground from './components/ThreeBackground';
+
 const App: React.FC = () => {
   const [showSnow, setShowSnow] = useState(false);
 
@@ -40,6 +42,7 @@ const App: React.FC = () => {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
+        <ThreeBackground />
         <SnowOverlay active={showSnow} />
 
         <Navigation />
