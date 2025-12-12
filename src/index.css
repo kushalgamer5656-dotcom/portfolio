@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Enable smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
 }
 
 :root {
@@ -12,4 +18,17 @@ body {
   --cyber-primary: #00f0ff;
   --cyber-secondary: #7000ff;
   --cyber-text: #e0e0e0;
+}
+
+/* Hide Scrollbar for a premium, clean look */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+body {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }

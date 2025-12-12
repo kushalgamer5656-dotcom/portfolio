@@ -10,7 +10,7 @@ import Contact from './pages/Contact';
 import SnowOverlay from './components/SnowOverlay';
 import ChatBot from './components/ChatBot';
 
-import ThreeBackground from './components/ThreeBackground';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const App: React.FC = () => {
   const [showSnow, setShowSnow] = useState(false);
@@ -35,34 +35,35 @@ const App: React.FC = () => {
 
   return (
     <HashRouter>
-      <div
-        className="min-h-screen bg-cyber-black text-white selection:bg-cyber-primary selection:text-black"
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        <ThreeBackground />
-        <SnowOverlay active={showSnow} />
+      <ErrorBoundary>
+        <div
+          className="min-h-screen bg-cyber-black text-white selection:bg-cyber-primary selection:text-black"
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <SnowOverlay active={showSnow} />
 
-        <Navigation />
+          <Navigation />
 
-        <main className="transition-opacity duration-500 ease-in-out pt-20">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/resume" element={<Resume />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
+          <main className="transition-opacity duration-500 ease-in-out pt-20">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/resume" element={<Resume />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </main>
 
-        <ChatBot />
+          <ChatBot />
 
-        <footer className="py-6 text-center text-gray-600 text-sm border-t border-gray-900 mt-12 bg-black/50 backdrop-blur-sm">
-          <p>&copy; {new Date().getFullYear()} Kushal Khanal. All rights reserved.</p>
-          <p className="text-xs mt-1">Built with React & Gemini AI</p>
-        </footer>
-      </div>
+          <footer className="py-6 text-center text-gray-600 text-sm border-t border-gray-900 mt-12 bg-black/50 backdrop-blur-sm">
+            <p>&copy; {new Date().getFullYear()} Kushal Khanal. All rights reserved.</p>
+            <p className="text-xs mt-1">Built with React & Gemini AI</p>
+          </footer>
+        </div>
+      </ErrorBoundary>
     </HashRouter>
   );
 };
