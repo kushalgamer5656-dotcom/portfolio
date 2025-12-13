@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Resume from './pages/Resume';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
+import TeenPatti from './pages/TeenPatti';
 import SnowOverlay from './components/SnowOverlay';
 import ChatBot from './components/ChatBot';
 
@@ -53,6 +54,7 @@ const App: React.FC = () => {
               <Route path="/resume" element={<Resume />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/teenpatti" element={<TeenPatti />} />
             </Routes>
           </main>
 

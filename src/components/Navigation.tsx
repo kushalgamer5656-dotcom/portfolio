@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Cpu } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = [
-    { label: 'HOME', id: 'home' },
-    { label: 'RESUME', id: 'resume' },
-    { label: 'PROJECTS', id: 'projects' },
-    { label: 'CONTACT', id: 'contact' },
+    { label: 'HOME', id: 'home', path: '/' },
+    { label: 'RESUME', id: 'resume', path: '/resume' },
+    { label: 'PROJECTS', id: 'projects', path: '/projects' },
+    { label: 'CONTACT', id: 'contact', path: '/contact' },
+    { label: '3 PATTI', id: 'teenpatti', path: '/teenpatti' },
   ];
 
-  const handleScrollTo = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleNavigation = (item: { label: string; id: string; path: string }) => {
+    if (item.path) {
+      navigate(item.path);
+      setActiveSection(item.id);
       setIsOpen(false);
-      setActiveSection(id);
+    } else {
+      const element = document.getElementById(item.id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsOpen(false);
+        setActiveSection(item.id);
+      }
     }
   };
 
@@ -30,7 +40,7 @@ const Navigation: React.FC = () => {
         <div className="flex items-center justify-between h-20">
 
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => handleScrollTo('home')}>
+          <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
             <Cpu className="w-8 h-8 text-cyber-primary animate-pulse-fast" />
             <span className="font-display font-bold text-xl tracking-widest text-white">
               KUSHAL<span className="text-cyber-primary">.AI</span>
@@ -43,8 +53,8 @@ const Navigation: React.FC = () => {
               {navItems.map((item) => (
                 <button
                   key={item.label}
-                  onClick={() => handleScrollTo(item.id)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium tracking-wider transition-all duration-300 ${activeSection === item.id
+                  onClick={() => handleNavigation(item)}
+                  className={`px-3 py-2 rounded-md text-sm font-medium tracking-wider transition-all duration-300 ${location.pathname === item.path
                     ? 'text-cyber-black bg-cyber-primary shadow-[0_0_15px_rgba(0,240,255,0.7)]'
                     : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
@@ -74,8 +84,8 @@ const Navigation: React.FC = () => {
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => handleScrollTo(item.id)}
-                className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium ${activeSection === item.id
+                onClick={() => handleNavigation(item)}
+                className={`block w-full text-left px-3 py-3 rounded-md text-base font-medium ${location.pathname === item.path
                   ? 'text-cyber-primary bg-white/5 border-l-4 border-cyber-primary'
                   : 'text-gray-300 hover:text-white hover:bg-white/10'
                   }`}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teen Patti Game</title>
+    <link rel="stylesheet" href="teen-patti.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <h1>Teen Patti (3 Patti)</h1>
+
+        <!-- Game Start Button -->
+        <div class="button-container">
+            <button id="playButton" class="play-button">Play 3 Patti</button>
+        </div>
+
+        <!-- Game Results Area -->
+        <div id="gameResults" class="game-results hidden">
+            <!-- Player 1 Section -->
+            <div class="player-section">
+                <h2>Player 1</h2>
+                <div id="player1Cards" class="cards-display"></div>
+                <div id="player1Rank" class="hand-rank"></div>
+            </div>
+
+            <!-- VS Divider -->
+            <div class="vs-divider">VS</div>
+
+            <!-- Player 2 Section -->
+            <div class="player-section">
+                <h2>Player 2</h2>
+                <div id="player2Cards" class="cards-display"></div>
+                <div id="player2Rank" class="hand-rank"></div>
+            </div>
+
+            <!-- Winner Announcement -->
+            <div id="winnerAnnouncement" class="winner-announcement"></div>
+        </div>
+    </div>
+
+    <script src="teen-patti.js"></script>
+</body>
+
+</html>
