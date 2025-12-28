@@ -204,31 +204,34 @@ const TeenPatti: React.FC = () => {
     };
 
     return (
-        <section id="teenpatti" className="min-h-screen flex items-center justify-center py-20 px-4 bg-gradient-to-br from-cyber-dark via-cyber-black to-cyber-dark">
-            <div className="max-w-7xl w-full">
+        <section id="teenpatti" className="min-h-screen flex items-center justify-center py-20 px-4 bg-cyber-black relative overflow-hidden">
+            {/* Background Decor */}
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyber-primary/5 via-transparent to-transparent opacity-50 pointer-events-none"></div>
+
+            <div className="max-w-7xl w-full relative z-10">
                 {/* Title */}
-                <div className="text-center mb-12">
-                    <h1 className="text-5xl md:text-6xl font-display font-bold text-white mb-4">
-                        Teen Patti <span className="text-cyber-primary">(3 Patti)</span>
+                <div className="text-center mb-16">
+                    <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight">
+                        Teen Patti <span className="text-cyber-primary">Game</span>
                     </h1>
-                    <p className="text-gray-400 text-lg">Developed by <span className="text-cyber-primary font-semibold">Kushal Khanal</span></p>
+                    <p className="text-gray-400 text-lg">A Digital Implementation of the Classic Card Game</p>
                 </div>
 
                 {/* Play Button */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-16">
                     <button
                         onClick={playGame}
-                        className="px-12 py-4 bg-gradient-to-r from-cyber-primary to-cyber-secondary text-cyber-black font-bold text-xl rounded-full hover:shadow-[0_0_30px_rgba(0,240,255,0.7)] transition-all duration-300 transform hover:scale-105 uppercase tracking-wider"
+                        className="px-12 py-4 bg-cyber-primary text-black font-bold text-xl rounded-full hover:bg-white hover:scale-105 transition-all duration-300 uppercase tracking-widest shadow-[0_0_20px_rgba(0,240,255,0.3)]"
                     >
-                        Play 3 Patti
+                        {winner ? 'Play Again' : 'Deal Cards'}
                     </button>
                 </div>
 
                 {/* Deck Animation */}
                 {showDeck && (
                     <div className="text-center mb-8 animate-fade-in">
-                        <div className="inline-block bg-gradient-to-br from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl text-2xl font-bold shadow-2xl animate-pulse-slow">
-                            🃏 Dealing Cards...
+                        <div className="inline-block bg-white/5 border border-white/10 text-white px-8 py-4 rounded-xl text-2xl font-bold">
+                            🃏 Dealing...
                         </div>
                     </div>
                 )}
@@ -237,11 +240,11 @@ const TeenPatti: React.FC = () => {
                 {player1Hand.length > 0 && (
                     <div className="grid md:grid-cols-2 gap-8 mb-8">
                         {/* Player 1 Section */}
-                        <div className="bg-gradient-to-br from-blue-900/40 to-blue-800/40 backdrop-blur-sm border-2 border-cyber-primary/50 rounded-2xl p-6 shadow-2xl animate-fade-in">
-                            <h2 className="text-3xl font-bold text-cyber-primary mb-6 text-center">Player 1</h2>
+                        <div className="bg-[#0a0b10] border border-white/10 rounded-2xl p-8 shadow-2xl">
+                            <h2 className="text-2xl font-bold text-cyber-primary mb-8 text-center uppercase tracking-widest">Player 1</h2>
 
                             {/* Player 1 Cards */}
-                            <div className="flex gap-4 justify-center mb-6">
+                            <div className="flex gap-4 justify-center mb-8">
                                 {player1Hand.map((card, idx) => (
                                     <div
                                         key={idx}
@@ -253,17 +256,16 @@ const TeenPatti: React.FC = () => {
                                     >
                                         {player1Revealed[idx] ? (
                                             <div
-                                                className={`bg-white border-4 border-gray-800 rounded-xl px-6 py-8 text-4xl font-bold w-24 h-32 flex items-center justify-center shadow-xl transform hover:-translate-y-2 transition-transform ${isRed(card) ? 'text-red-600' : 'text-gray-900'
+                                                className={`bg-white rounded-xl px-4 py-6 text-4xl font-bold w-24 h-36 flex flex-col items-center justify-between shadow-xl transform hover:-translate-y-2 transition-transform ${isRed(card) ? 'text-red-600' : 'text-gray-900'
                                                     }`}
                                             >
-                                                <div className="text-center">
-                                                    <div>{card.value}</div>
-                                                    <div>{card.suit}</div>
-                                                </div>
+                                                <div className="text-lg self-start">{card.value}</div>
+                                                <div className="text-4xl">{card.suit}</div>
+                                                <div className="text-lg self-end rotate-180">{card.value}</div>
                                             </div>
                                         ) : (
-                                            <div className="bg-gradient-to-br from-purple-600 to-blue-600 border-4 border-purple-800 rounded-xl w-24 h-32 flex items-center justify-center shadow-xl">
-                                                <span className="text-6xl">🃏</span>
+                                            <div className="bg-gradient-to-tr from-gray-800 to-gray-900 border border-gray-700 rounded-xl w-24 h-36 flex items-center justify-center shadow-xl">
+                                                <span className="text-4xl opacity-20">♠</span>
                                             </div>
                                         )}
                                     </div>
@@ -326,8 +328,8 @@ const TeenPatti: React.FC = () => {
                 {/* Winner Announcement */}
                 {showWinner && (
                     <div className={`text-center py-8 rounded-2xl text-4xl font-bold shadow-2xl animate-bounce-in ${winner.includes('Tie')
-                            ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white'
-                            : 'bg-gradient-to-r from-pink-500 to-purple-600 text-white'
+                        ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white'
+                        : 'bg-gradient-to-r from-pink-500 to-purple-600 text-white'
                         }`}>
                         {winner}
                     </div>

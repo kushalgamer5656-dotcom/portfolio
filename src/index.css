@@ -13,8 +13,8 @@ body {
 }
 
 :root {
-  --cyber-black: #0a0a0f;
-  --cyber-dark: #13131f;
+  --cyber-black: #050508;
+  --cyber-dark: #0a0b14;
   --cyber-primary: #00f0ff;
   --cyber-secondary: #7000ff;
   --cyber-text: #e0e0e0;
@@ -108,4 +108,37 @@ body {
 
 .animate-bounce-in {
   animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  overflow: hidden;
+  background: var(--cyber-dark);
+}
+
+.hero-clock {
+  width: 300px;
+  height: 300px;
+  background: url('./assets/clock_hero.png') center/contain no-repeat;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.6), 0 0 60px rgba(255, 100, 0, 0.4);
+  backdrop-filter: blur(12px) saturate(150%);
+}
+
+.hero-text {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--cyber-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem;
+  line-height: 1.2;
 }
